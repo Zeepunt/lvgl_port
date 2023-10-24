@@ -1,18 +1,18 @@
 /*
  * @Author       : Zeepunt
- * @Date         : 2023-07-08 22:56:43
- * @LastEditTime : 2023-07-09 13:56:16
+ * @Date         : 2023-07-08
+ * @LastEditTime : 2023-10-21
  *  
  * Gitee : https://gitee.com/zeepunt
  * Github: https://github.com/zeepunt
  *  
  * Copyright (c) 2023 by Zeepunt, All Rights Reserved. 
  */
-#include "sdl.h"
-
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+
+#include <lvgl_port/sdl/sdl.h>
 #include SDL_INCLUDE_PATH
 
 #ifndef KEYBOARD_BUFFER_SIZE

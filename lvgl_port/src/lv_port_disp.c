@@ -1,7 +1,7 @@
 /*
  * @Author       : Zeepunt
- * @Date         : 2023-07-09 12:55:55
- * @LastEditTime : 2023-07-09 13:38:13
+ * @Date         : 2023-07-09
+ * @LastEditTime : 2023-10-21
  *  
  * Gitee : https://gitee.com/zeepunt
  * Github: https://github.com/zeepunt
@@ -11,22 +11,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "lv_port.h"
+
+#include <lvgl_port/lv_port.h>
+#include <lvgl_port/sdl/sdl.h>
 
 #ifndef MY_DISP_HOR_RES
-    #ifdef TARGET_DISPLAY_SDL
-        #define MY_DISP_HOR_RES SDL_HOR_RES
-    #else
-        #define MY_DISP_HOR_RES 320
-    #endif
+    #define MY_DISP_HOR_RES SDL_HOR_RES
 #endif
 
 #ifndef MY_DISP_VER_RES
-    #ifdef TARGET_DISPLAY_SDL
-        #define MY_DISP_VER_RES SDL_VER_RES
-    #else
-        #define MY_DISP_VER_RES 240
-    #endif
+    #define MY_DISP_VER_RES SDL_VER_RES
 #endif
 
 static lv_disp_t *s_disp = NULL;
@@ -38,9 +32,7 @@ static lv_color_t *s_disp_buf_2 = NULL;
 
 static void disp_init(void)
 {
-#ifdef TARGET_DISPLAY_SDL
     sdl_init();
-#endif
 }
 
 void lv_port_disp_init(void)
@@ -59,11 +51,10 @@ void lv_port_disp_init(void)
     lv_disp_drv_init(&s_disp_drv);
     s_disp_drv.draw_buf = &s_disp_draw_buf;
 
-#ifdef TARGET_DISPLAY_SDL
-    s_disp_drv.hor_res = SDL_HOR_RES;
-    s_disp_drv.ver_res = SDL_VER_RES;
+    s_disp_drv.hor_res = MY_DISP_HOR_RES;
+    s_disp_drv.ver_res = MY_DISP_VER_RES;
+
     s_disp_drv.flush_cb = sdl_display_flush;
-#endif
 
     s_disp = lv_disp_drv_register(&s_disp_drv);
 }

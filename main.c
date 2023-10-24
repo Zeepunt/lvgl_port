@@ -1,7 +1,7 @@
 /*
  * @Author       : Zeepunt
- * @Date         : 2023-07-08 20:46:03
- * @LastEditTime : 2023-07-09 13:13:15
+ * @Date         : 2023-07-08
+ * @LastEditTime : 2023-10-21
  *
  * Gitee : https://gitee.com/zeepunt
  * Github: https://github.com/zeepunt
@@ -22,7 +22,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <lv_port.h>
+#include <lvgl.h>
+#include <lvgl_port/lv_port.h>
 
 static pthread_t s_lvgl_handler_tid;
 static pthread_t s_lvgl_timer_tid;
