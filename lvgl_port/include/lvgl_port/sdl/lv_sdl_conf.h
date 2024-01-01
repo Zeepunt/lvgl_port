@@ -1,7 +1,7 @@
 /*
  * @Author       : Zeepunt
  * @Date         : 2023-07-08
- * @LastEditTime : 2023-10-21
+ * @LastEditTime : 2023-12-30
  *  
  * Gitee : https://gitee.com/zeepunt
  * Github: https://github.com/zeepunt
@@ -15,11 +15,11 @@
 extern "C" {
 #endif
 
-#define SDL_HOR_RES         720
+#define SDL_HOR_RES         320
 #define SDL_VER_RES         480
 
 /* Scale window by this factor (useful when simulating small screens) */
-#define SDL_ZOOM            1
+#define SDL_ZOOM            2
 
 /**
  * Used to test true double buffering with only address changing.
