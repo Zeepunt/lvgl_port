@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
 
     /* 设备初始化 */
     lv_port_disp_init();
+    lv_port_indev_init();
 
     ret = pthread_create(&s_lvgl_handler_tid,
                          NULL,
