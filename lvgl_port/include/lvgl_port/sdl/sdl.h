@@ -1,3 +1,9 @@
+/*
+ * sdl.h
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: 2023-2026 Zeepunt
+ */
 #ifndef __SDL_H__
 #define __SDL_H__
 

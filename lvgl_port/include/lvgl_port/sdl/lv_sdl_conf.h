@@ -1,12 +1,8 @@
 /*
- * @Author       : Zeepunt
- * @Date         : 2023-07-08
- * @LastEditTime : 2023-12-30
- *  
- * Gitee : https://gitee.com/zeepunt
- * Github: https://github.com/zeepunt
- *  
- * Copyright (c) 2023 by Zeepunt, All Rights Reserved. 
+ * lv_sdl_conf.h
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: 2023-2026 Zeepunt
  */
 #ifndef __LV_SDL_CONF_H__
 #define __LV_SDL_CONF_H__

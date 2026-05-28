@@ -1,12 +1,8 @@
 /*
- * @Author       : Zeepunt
- * @Date         : 2023-12-30
- * @LastEditTime : 2023-12-30
- *  
- * Gitee : https://gitee.com/zeepunt
- * Github: https://github.com/zeepunt
- *  
- * Copyright (c) 2023 by Zeepunt, All Rights Reserved. 
+ * lv_port_indev.c
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: 2023-2026 Zeepunt
  */
 #include <lvgl_port/lv_port.h>
 #include <lvgl_port/sdl/sdl.h>
