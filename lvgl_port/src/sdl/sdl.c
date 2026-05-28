@@ -56,43 +56,44 @@ static lv_indev_state_t s_wheel_state = LV_INDEV_STATE_RELEASED;
 
 static char s_buf[KEYBOARD_BUFFER_SIZE];
 
-static mouse_handler(SDL_Event *event)
+static void mouse_handler(SDL_Event *event)
 {
     switch (event->type) {
-    case SDL_MOUSEBUTTONUP:
-        if (event->button.button == SDL_BUTTON_LEFT)
-            s_left_button_down = false;
-        break;
+        case SDL_MOUSEBUTTONUP:
+            if (event->button.button == SDL_BUTTON_LEFT) {
+                s_left_button_down = false;
+            }
+            break;
 
-    case SDL_MOUSEBUTTONDOWN:
-        if (event->button.button == SDL_BUTTON_LEFT) {
-            s_left_button_down = true;
+        case SDL_MOUSEBUTTONDOWN:
+            if (event->button.button == SDL_BUTTON_LEFT) {
+                s_left_button_down = true;
+                s_last_x = event->motion.x / SDL_ZOOM;
+                s_last_y = event->motion.y / SDL_ZOOM;
+            }
+            break;
+
+        case SDL_MOUSEMOTION:
             s_last_x = event->motion.x / SDL_ZOOM;
             s_last_y = event->motion.y / SDL_ZOOM;
-        }
-        break;
+            break;
 
-    case SDL_MOUSEMOTION:
-        s_last_x = event->motion.x / SDL_ZOOM;
-        s_last_y = event->motion.y / SDL_ZOOM;
-        break;
+        case SDL_FINGERUP:
+            s_left_button_down = false;
+            s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
+            s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
+            break;
 
-    case SDL_FINGERUP:
-        s_left_button_down = false;
-        s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
-        s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
-        break;
+        case SDL_FINGERDOWN:
+            s_left_button_down = true;
+            s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
+            s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
+            break;
 
-    case SDL_FINGERDOWN:
-        s_left_button_down = true;
-        s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
-        s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
-        break;
-
-    case SDL_FINGERMOTION:
-        s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
-        s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
-        break;
+        case SDL_FINGERMOTION:
+            s_last_x = SDL_HOR_RES * event->tfinger.x / SDL_ZOOM;
+            s_last_y = SDL_VER_RES * event->tfinger.y / SDL_ZOOM;
+            break;
     }
 }
 
@@ -100,39 +101,42 @@ static mouse_handler(SDL_Event *event)
  * @brief is called periodically from the SDL thread to check mouse wheel state
  * @param event describes the event
  */
-static mousewheel_handler(SDL_Event *event)
+static void mousewheel_handler(SDL_Event *event)
 {
     switch (event->type) {
-    case SDL_MOUSEWHEEL:
-        /**
-         * Scroll down (y = -1) means positive encoder turn,
-         * so invert it
-         */
+        case SDL_MOUSEWHEEL:
+            /**
+             * Scroll down (y = -1) means positive encoder turn,
+             * so invert it
+             */
 #ifdef __EMSCRIPTEN__
-        /* Escripten scales it wrong */
-        if (event->wheel.y < 0)
-            s_wheel_diff++;
-        if (event->wheel.y > 0)
-            s_wheel_diff--;
+            /* Escripten scales it wrong */
+            if (event->wheel.y < 0) {
+                s_wheel_diff++;
+            }
+
+            if (event->wheel.y > 0) {
+                s_wheel_diff--;
+            }
 #else
-        s_wheel_diff = -event->wheel.y;
+            s_wheel_diff = -event->wheel.y;
 #endif
-        break;
+            break;
 
-    case SDL_MOUSEBUTTONDOWN:
-        if (event->button.button == SDL_BUTTON_MIDDLE) {
-            s_wheel_state = LV_INDEV_STATE_PRESSED;
-        }
-        break;
+        case SDL_MOUSEBUTTONDOWN:
+            if (event->button.button == SDL_BUTTON_MIDDLE) {
+                s_wheel_state = LV_INDEV_STATE_PRESSED;
+            }
+            break;
 
-    case SDL_MOUSEBUTTONUP:
-        if (event->button.button == SDL_BUTTON_MIDDLE) {
-            s_wheel_state = LV_INDEV_STATE_RELEASED;
-        }
-        break;
+        case SDL_MOUSEBUTTONUP:
+            if (event->button.button == SDL_BUTTON_MIDDLE) {
+                s_wheel_state = LV_INDEV_STATE_RELEASED;
+            }
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 }
 
@@ -147,44 +151,44 @@ uint32_t keycode_to_ctrl_key(SDL_Keycode sdl_key)
     SDL_Keymod mode = SDL_GetModState();
 
     switch (sdl_key) {
-    case SDLK_RIGHT:
-    case SDLK_KP_PLUS:
-        return LV_KEY_RIGHT;
+        case SDLK_RIGHT:
+        case SDLK_KP_PLUS:
+            return LV_KEY_RIGHT;
 
-    case SDLK_LEFT:
-    case SDLK_KP_MINUS:
-        return LV_KEY_LEFT;
+        case SDLK_LEFT:
+        case SDLK_KP_MINUS:
+            return LV_KEY_LEFT;
 
-    case SDLK_UP:
-        return LV_KEY_UP;
+        case SDLK_UP:
+            return LV_KEY_UP;
 
-    case SDLK_DOWN:
-        return LV_KEY_DOWN;
+        case SDLK_DOWN:
+            return LV_KEY_DOWN;
 
-    case SDLK_ESCAPE:
-        return LV_KEY_ESC;
+        case SDLK_ESCAPE:
+            return LV_KEY_ESC;
 
-    case SDLK_BACKSPACE:
-        return LV_KEY_BACKSPACE;
+        case SDLK_BACKSPACE:
+            return LV_KEY_BACKSPACE;
 
-    case SDLK_DELETE:
-        return LV_KEY_DEL;
+        case SDLK_DELETE:
+            return LV_KEY_DEL;
 
-    case SDLK_KP_ENTER:
-    case '\r':
-        return LV_KEY_ENTER;
+        case SDLK_KP_ENTER:
+        case '\r':
+            return LV_KEY_ENTER;
 
-    case SDLK_TAB:
-        return (mode & KMOD_SHIFT) ? LV_KEY_PREV : LV_KEY_NEXT;
+        case SDLK_TAB:
+            return (mode & KMOD_SHIFT) ? LV_KEY_PREV : LV_KEY_NEXT;
 
-    case SDLK_PAGEDOWN:
-        return LV_KEY_NEXT;
+        case SDLK_PAGEDOWN:
+            return LV_KEY_NEXT;
 
-    case SDLK_PAGEUP:
-        return LV_KEY_PREV;
+        case SDLK_PAGEUP:
+            return LV_KEY_PREV;
 
-    default:
-        return '\0';
+        default:
+            return '\0';
     }
 }
 
@@ -196,30 +200,32 @@ static void keyboard_handler(SDL_Event *event)
 {
     /* We only care about SDL_KEYDOWN and SDL_TEXTINPUT events */
     switch (event->type) {
-    case SDL_KEYDOWN: {
-        /*Button press*/
-        const uint32_t ctrl_key = keycode_to_ctrl_key(event->key.keysym.sym);
-        if (ctrl_key == '\0')
-            return;
-        const size_t len = strlen(s_buf);
-        if (len < KEYBOARD_BUFFER_SIZE - 1) {
-            s_buf[len] = ctrl_key;
-            s_buf[len + 1] = '\0';
+        case SDL_KEYDOWN: {
+            /*Button press*/
+            const uint32_t ctrl_key = keycode_to_ctrl_key(event->key.keysym.sym);
+            if (ctrl_key == '\0') {
+                return;
+            }
+
+            const size_t len = strlen(s_buf);
+            if (len < KEYBOARD_BUFFER_SIZE - 1) {
+                s_buf[len] = ctrl_key;
+                s_buf[len + 1] = '\0';
+            }
+            break;
         }
-        break;
-    }
 
-    case SDL_TEXTINPUT: {
-        /* Text input */
-        const size_t len = strlen(s_buf) + strlen(event->text.text);
-        if (len < KEYBOARD_BUFFER_SIZE - 1)
-            strcat(s_buf, event->text.text);
+        case SDL_TEXTINPUT: {
+            /* Text input */
+            const size_t len = strlen(s_buf) + strlen(event->text.text);
+            if (len < KEYBOARD_BUFFER_SIZE - 1) {
+                strcat(s_buf, event->text.text);
+            }
+            break;
+        }
 
-        break;
-    }
-
-    default:
-        break;
+        default:
+            break;
     }
 }
 
@@ -241,16 +247,17 @@ static void sdl_event_handler(lv_timer_t *t)
         if ((&event)->type == SDL_WINDOWEVENT) {
             switch ((&event)->window.event) {
 #if SDL_VERSION_ATLEAST(2, 0, 5)
-            case SDL_WINDOWEVENT_TAKE_FOCUS:
+                case SDL_WINDOWEVENT_TAKE_FOCUS:
 #endif
-            case SDL_WINDOWEVENT_EXPOSED:
-                window_update(&s_monitor);
+                case SDL_WINDOWEVENT_EXPOSED:
+                    window_update(&s_monitor);
 #if SDL_DUAL_DISPLAY
-                window_update(&s_monitor2);
+                    window_update(&s_monitor2);
 #endif
-                break;
-            default:
-                break;
+                    break;
+
+                default:
+                    break;
             }
         }
     }
@@ -345,8 +352,10 @@ static void window_update(monitor_t *m)
                       m->tft_fb,
                       SDL_HOR_RES * sizeof(uint32_t));
 #else
-    if (m->tft_fb_act == NULL)
+    if (m->tft_fb_act == NULL) {
         return;
+    }
+
     SDL_UpdateTexture(m->texture,
                       NULL,
                       m->tft_fb_act,
