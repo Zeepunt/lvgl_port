@@ -1,6 +1,6 @@
 ## 当前版本
 
-[LVGL - 8.3.8](https://github.com/lvgl/lvgl/releases/tag/v8.3.8)。
+[LVGL - 8.4.0](https://github.com/lvgl/lvgl/releases/tag/v8.4.0)。
 
 ## 平台编译
 
