@@ -21,6 +21,10 @@
 #include <lvgl.h>
 #include <lvgl_port/lv_port.h>
 
+#ifdef ENABLE_COMPONENT_POCKETPY
+#include <app_pocketpy.h>
+#endif
+
 static pthread_t s_lvgl_handler_tid;
 static pthread_t s_lvgl_timer_tid;
 
@@ -85,7 +89,12 @@ int main(int argc, char *argv[])
         printf("lvgl_timer thread crate fail: %d.\n", ret);
     }
 
+#ifdef ENABLE_COMPONENT_POCKETPY
+    app_pocketpy_init();
+    app_pocketpy_run_py("main.py");
+#else
     lvgl_demo();
+#endif
 
     while (1);
 

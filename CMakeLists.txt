@@ -24,8 +24,10 @@ find_package(SDL2 REQUIRED)
 
 add_subdirectory(lvgl)
 add_subdirectory(lvgl_port)
+add_subdirectory(components)
 
 add_executable(lvgl_simulator main.c)
 target_link_libraries(lvgl_simulator pthread
                                      SDL2
-                                     lvgl_port)
+                                     lvgl_port
+                                     components)
