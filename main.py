@@ -6,4 +6,4 @@
 import lvgl
 
 if __name__ == "__main__":
-    btn = lvgl.btn.create()
+    btn = lvgl.btn_create()

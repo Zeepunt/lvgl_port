@@ -21,7 +21,7 @@ typedef struct {
 lv_obj_t *lv_pocketpy_py_to_lvgl(py_Ref py_obj);
 bool lv_pocketpy_lvgl_to_py(lv_obj_t *lv_obj);
 
-void lv_pocketpy_module_btn(py_Ref parent_mod);
+void lv_pocketpy_module_btn(py_Ref mod);
 void lv_pocketpy_module(void);
 
 #ifdef __cplusplus
