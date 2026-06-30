@@ -11,8 +11,8 @@
 extern "C" {
 #endif
 
-#include <lvgl_port/sdl/lv_sdl_conf.h>
-#include <lvgl.h>
+#include "lvgl.h"
+#include "sdl/lv_sdl_conf.h"
 #include SDL_INCLUDE_PATH
 
 /**

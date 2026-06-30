@@ -8,8 +8,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include <lvgl_port/lv_port.h>
-#include <lvgl_port/sdl/sdl.h>
+#include "lv_port.h"
+#include "sdl/sdl.h"
 
 #ifndef MY_DISP_HOR_RES
     #define MY_DISP_HOR_RES SDL_HOR_RES

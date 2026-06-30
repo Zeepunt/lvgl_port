@@ -18,11 +18,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <lvgl.h>
-#include <lvgl_port/lv_port.h>
+#include "lvgl.h"
+#include "lv_port.h"
 
 #ifdef ENABLE_COMPONENT_POCKETPY
-#include <app_pocketpy.h>
+#include "app_pocketpy.h"
 #endif
 
 static pthread_t s_lvgl_handler_tid;

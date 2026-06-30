@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * SPDX-FileCopyrightText: 2023-2026 Zeepunt
  */
-#include <lvgl_port/lv_port.h>
-#include <lvgl_port/sdl/sdl.h>
+#include "lv_port.h"
+#include "sdl/sdl.h"
 
 static lv_indev_drv_t s_indev_drv;
 static lv_indev_t *s_mouse_indev;

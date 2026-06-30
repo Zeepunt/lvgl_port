@@ -1,4 +1,5 @@
-#include <lvgl.h>
+#include "lvgl.h"
+
 const uint8_t mouse_cursor_icon_map[] = {
 #if LV_COLOR_DEPTH == 1 || LV_COLOR_DEPTH == 8
     /*Pixel format: Alpha 8 bit, Red: 3 bit, Green: 3 bit, Blue: 2 bit*/

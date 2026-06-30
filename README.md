@@ -1,8 +1,8 @@
-## 当前版本
+# 当前版本
 
 [LVGL - 8.4.0](https://github.com/lvgl/lvgl/releases/tag/v8.4.0)。
 
-## 平台编译
+# 平台编译
 
 依赖项：
 
@@ -11,45 +11,74 @@ sudo apt install cmake
 sudo apt install ninja-build
 ```
 
-### 1、Linux
+## 1、Linux
 
-以 Ubuntu 为例
+### Ubuntu
 
-- 如果使用的是 SDL
+Ubuntu 版本：
 
-    ```shell
-    # 安装 SDL2
-    sudo apt-get install aptitude
-    sudo aptitude install libsdl2-dev
-    
-    # 确认已安装的 SDL2 版本 (当前所使用的版本为 2.0.20)
-    sudo apt install aptitude
-    aptitude show libsdl2-dev
-    
-    # 显示内容如下
-    Package: libsdl2-dev
-    Version: 2.0.20+dfsg-2ubuntu1.22.04.1
-    State: installed
-    ...
-    ```
+```shell
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.5 LTS
+Release:        22.04
+Codename:       jammy
+```
 
-    编译和运行
+#### 使用的是 SDL2
 
-    ```shell
-    # 配置
-    cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
-    
-    # 编译
-    cmake --build build
-    
-    # 运行
-    ./build/lvgl_simulator
-    ```
+安装 SDL2
 
-- 如果使用的是 Framebuffer
+```shell
+$ sudo apt install libsdl2-dev
+```
 
-    ```shell
-    # TODO
-    ```
+编译和运行
 
-### 2、RTOS
+```shell
+# 配置
+$ cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
+
+# 编译
+$ cmake --build build
+
+# 运行
+$ ./build/lvgl_simulator
+```
+
+## 2、Windows
+
+### MSYS2
+
+MSYS2 版本：
+
+```shell
+# msys2-runtime 3.6.9
+$ uname -a
+MSYS_NT-10.0-19045 DESKTOP-1FVGBS5 3.6.9-01d6c708.x86_64 2026-05-24 10:45 UTC x86_64 Msys
+```
+
+> 1. 终端使用的是 `MSYS2 MINGW64`。
+> 2. CMake 和 Ninja 都是使用 Windows 安装包，不是使用 pacman 命令安装的。
+
+#### 使用的是 SDL2
+
+安装 SDL2
+
+```shell
+$ pacman -S mingw-w64-x86_64-SDL2
+```
+
+编译和运行
+
+```shell
+# 配置
+$ cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
+
+# 编译
+$ cmake --build build
+
+# 运行
+$ ./build/lvgl_simulator
+```

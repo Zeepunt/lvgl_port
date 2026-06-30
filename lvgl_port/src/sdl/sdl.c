@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include <lvgl_port/sdl/sdl.h>
+#include "sdl/sdl.h"
 #include SDL_INCLUDE_PATH
 
 #ifndef KEYBOARD_BUFFER_SIZE
