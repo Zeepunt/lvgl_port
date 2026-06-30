@@ -49,13 +49,15 @@ static void *lvgl_timer_thread(void *arg)
 
 void lvgl_demo(void)
 {
+    lv_lock();
     lv_obj_t *obj = lv_obj_create(lv_scr_act());
-	lv_obj_set_pos(obj, 0, 0);
-	lv_obj_set_size(obj, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+    lv_obj_set_pos(obj, 0, 0);
+    lv_obj_set_size(obj, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
 
     lv_obj_t *label = lv_label_create(obj);
-	lv_label_set_text(label, "Hello, LVGL.");
+    lv_label_set_text(label, "Hello, LVGL.");
     lv_obj_center(label);
+    lv_unlock();
 }
 
 int main(int argc, char *argv[])
@@ -76,7 +78,7 @@ int main(int argc, char *argv[])
     if (0 == ret) {
         pthread_detach(s_lvgl_handler_tid);
     } else {
-        printf("lvgl_handler thread crate fail: %d.\n", ret);
+        printf("lvgl_handler thread crate failed: %d.\n", ret);
     }
 
     ret = pthread_create(&s_lvgl_timer_tid,
@@ -86,7 +88,7 @@ int main(int argc, char *argv[])
     if (0 == ret) {
         pthread_detach(s_lvgl_timer_tid);
     } else {
-        printf("lvgl_timer thread crate fail: %d.\n", ret);
+        printf("lvgl_timer thread crate failed: %d.\n", ret);
     }
 
 #ifdef ENABLE_COMPONENT_POCKETPY

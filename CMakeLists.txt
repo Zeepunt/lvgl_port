@@ -16,6 +16,12 @@ project(lvgl_simulator LANGUAGES C CXX)
 
 find_package(SDL2 REQUIRED)
 
+set(LV_BUILD_CONF_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}/lvgl_port/inc
+    CACHE PATH
+    "LVGL configure file"
+)
+
 add_subdirectory(lvgl)
 add_subdirectory(lvgl_port)
 add_subdirectory(components)
@@ -23,6 +29,11 @@ add_subdirectory(components)
 target_include_directories(lvgl
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/lvgl_port/inc
+)
+
+target_link_libraries(lvgl
+    PRIVATE
+    SDL2::SDL2
 )
 
 add_executable(lvgl_simulator

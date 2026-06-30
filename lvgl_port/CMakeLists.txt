@@ -12,5 +12,4 @@ target_include_directories(lvgl_port
 target_link_libraries(lvgl_port
     PUBLIC
     lvgl::lvgl
-    SDL2::SDL2
 )
